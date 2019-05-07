@@ -1,0 +1,68 @@
+{
+    "title": "Firebase Remote Config",
+    "description": "Firebase Remote Config API allows the 3P clients to manage Remote Config conditions and parameters for Firebase applications.",
+    "docsUrl": "https://firebase.google.com/docs/remote-config/",
+    "url": "https://api.apis.guru/v2/specs/googleapis.com/firebaseremoteconfig/v1/swagger.json",
+    "envVars": {},
+    "credentials": {
+        "fields": {
+            "server": {
+                "label": "Server",
+                "viewClass": "SelectView",
+                "model": [
+                    "https://firebaseremoteconfig.googleapis.com/",
+                    "--- Custom URL"
+                ],
+                "required": true
+            },
+            "otherServer": {
+                "label": "Custom Server URL",
+                "viewClass": "TextFieldView"
+            }
+        }
+    },
+    "triggers": {
+        "startFlow": {
+            "main": "./lib/triggers/startFlow.js",
+            "type": "polling",
+            "title": "Start Flow",
+            "fields": {}
+        }
+    },
+    "actions": {
+        "firebaseremoteconfig_projects_getRemoteConfig": {
+            "main": "./lib/actions/firebaseremoteconfig_projects_getRemoteConfig.js",
+            "title": "Get the latest version Remote Configuration for a project.\nReturns the RemoteConfig as the payload, and also the eTag as a\nresponse header.",
+            "description": "Get the latest version Remote Configuration for a project.\nReturns the RemoteConfig as the payload, and also the eTag as a\nresponse header.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/firebaseremoteconfig_projects_getRemoteConfig.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "firebaseremoteconfig_projects_updateRemoteConfig": {
+            "main": "./lib/actions/firebaseremoteconfig_projects_updateRemoteConfig.js",
+            "title": "Update a RemoteConfig. We treat this as an always-existing\nresource (when it is not found in our data store, we treat it as version\n0, a template with zero conditions and zero parameters). Hence there are\nno Create or Delete operations. Returns the updated template when\nsuccessful (and the updated eTag as a response header), or an error if\nthings go wrong.\nPossible error messages:\n* VALIDATION_ERROR (HTTP status 400) with additional details if the\ntemplate being passed in can not be validated.\n* AUTHENTICATION_ERROR (HTTP status 401) if the request can not be\nauthenticate (e.g. no access token, or invalid access token).\n* AUTHORIZATION_ERROR (HTTP status 403) if the request can not be\nauthorized (e.g. the user has no access to the specified project id).\n* VERSION_MISMATCH (HTTP status 412) when trying to update when the\nexpected eTag (passed in via the \"If-match\" header) is not specified, or\nis specified but does does not match the current eTag.\n* Internal error (HTTP status 500) for Database problems or other internal\nerrors.",
+            "description": "Update a RemoteConfig. We treat this as an always-existing\nresource (when it is not found in our data store, we treat it as version\n0, a template with zero conditions and zero parameters). Hence there are\nno Create or Delete operations. Returns the updated template when\nsuccessful (and the updated eTag as a response header), or an error if\nthings go wrong.\nPossible error messages:\n* VALIDATION_ERROR (HTTP status 400) with additional details if the\ntemplate being passed in can not be validated.\n* AUTHENTICATION_ERROR (HTTP status 401) if the request can not be\nauthenticate (e.g. no access token, or invalid access token).\n* AUTHORIZATION_ERROR (HTTP status 403) if the request can not be\nauthorized (e.g. the user has no access to the specified project id).\n* VERSION_MISMATCH (HTTP status 412) when trying to update when the\nexpected eTag (passed in via the \"If-match\" header) is not specified, or\nis specified but does does not match the current eTag.\n* Internal error (HTTP status 500) for Database problems or other internal\nerrors.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/firebaseremoteconfig_projects_updateRemoteConfig.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        }
+    }
+}
